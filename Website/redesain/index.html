@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+    </script>
+    <title>Document</title>
+
+    <style>
+        #imgPreview {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!--{GLOBAL_MESSAGES_aae3749ba9c2e308ffa9c240ac185959}-->
+                <!--/{GLOBAL_MESSAGES_aae3749ba9c2e308ffa9c240ac185959}-->
+
+
+                <form id="uploader_form" class="scaffold-form" name="uploader_form"
+                    action="/catalog/product/view/id/210/" method="post" enctype="multipart/form-data">
+                    <div class="uploader_form">
+                        <input type="hidden" name="id" value="291">
+                        <input type="hidden" name="productid" value="210">
+                        <input type="hidden" name="sides" value="1">
+                        <input type="hidden" name="templatesize" value="77">
+                        <input type="hidden" name="product" value="18">
+                        <input type="hidden" id="oneSideOrTwoSides" name="oneSideOrTwoSides" value="1">
+                        <div class="fieldset">
+                            <ul style="list-style: none;">
+                                <li style="padding: 10px;">
+                                    <div class="button-set">
+                                        <h4 class="legend" style="text-align: center;">
+                                            Deteksi Penyakit Daun Jagung
+                                        </h4>
+                                        <div class="ajax-upload-dragdrop upload-drag-and-drop-box">
+                                            <div class="holder">
+                                                <img id="imgPreview" src="#" alt="pic" />
+                                            </div>
+                                            </br>
+
+                                            <p class="file-type-desc">( <font color="red">*</font>file extension
+                                                allowed: <strong>.jpg, .jpeg, .png )</p>
+
+                                            <p class="drag-drop-text">
+                                                Drag &amp; Drop Files here Or
+                                            </p>
+                                            <div class="col-md-12" style="padding-left: 30px; padding-right: 30px">
+                                                <input type="file" class="form-control" placeholder="Hours Studied"
+                                                    name="my_image" id="imgInp">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            {% if prediction %}
+                                            <h2> Your Prediction : <i> {{prediction}} </i></h2>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+                        </div>
+                        </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="file-upload-buttons">
+                        <ul style="list-style: none;">
+                            <li style="padding: 10px;">
+                                <div class="add-to-cart">
+                                    <input type="hidden" name="item_id" value="">
+
+                                    <input type="hidden" name="uploadedfiles" id="uploadedfiles" value="">
+                                    <input type="hidden" name="product_category_id" id="product_category_id"
+                                        value="291">
+                                    <input type="hidden" name="uploadedfiles_additional" id="uploadedfiles_additional"
+                                        value="">
+                                    <button class="form-back-button" type="button" id="goBackButton" name="btnGoBack"
+                                        onclick="window.location.href='https://eprint4me.ca/menu/marketing-products/postcards.html'">
+                                        <span>
+                                            <span>
+                                                <p>
+                                                    <img src="https://res.cloudinary.com/dtutqsucw/image/upload/v1438960670/back-button-icn.png"
+                                                        / class="animated rotateIn">
+                                                    Go back
+                                                </p>
+                                            </span>
+                                        </span>
+                                    </button>
+                                    &nbsp;&nbsp;
+                                    <button class="form-upload-button" type="submit" id="uploadFileButton"
+                                        name="btnSubmit">
+                                        <span>
+                                            <span id="uploadButtonName">
+                                                <p>
+                                                    Upload
+                                                    <img src="https://res.cloudinary.com/dtutqsucw/image/upload/v1438960670/file-upload.png"
+                                                        / class="animated slideInUp">
+                                                </p>
+                                            </span>
+                                        </span>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+            </div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(() => {
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                imgPreview.src = URL.createObjectURL(file)
+            }
+        }
+
+        $("#photo").change(function () {
+            const file = this.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function (event) {
+                    $("#imgPreview")
+                        .attr("src", event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
+</html>

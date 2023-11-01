@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+    </script>
+    <title>Image Classfication</title>
+
+    <style>
+        .button-set {
+            background-color: white;
+            margin: 0 auto;
+            width: 40%;
+        }
+
+        .button-set h2 {
+            font-size: 25px;
+            color: black;
+        }
+
+        .upload-drag-and-drop-box {
+            min-height: 150px;
+            border: 3px dashed grey;
+            text-align: center;
+            padding: 50px 0px 10px 0px;
+        }
+
+        .upload-drag-and-drop-box:hover {
+            min-height: 150px;
+            border: 3px solid grey;
+            text-align: center;
+            background: rgba(68, 177, 250, 0.08);
+            ;
+            padding: 50px 0px 10px 0px;
+        }
+
+        .file-type-desc {
+            font-size: 18px;
+            color: black;
+            margin-top: 10px;
+            padding-bottom: 5px;
+        }
+
+        .drag-drop-text {
+            font-size: 20px;
+            display: inline-block;
+            color: #8c99a5;
+            font-weight: normal;
+        }
+
+        .browse-button {
+            font-size: 17px;
+            padding: 1px;
+            line-height: normal;
+            box-shadow: none;
+            background-color: grey;
+            color: #F9FAFA;
+            padding: 7px 15px 7px 15px;
+            margin-left: 3px;
+            border-radius: 5px;
+            display: inline;
+            text-decoration: underline;
+            font-weight: normal;
+        }
+
+        .file-upload-buttons {
+            margin: 0 auto;
+            width: 50%;
+            text-align: center;
+        }
+
+        .form-back-button {
+            background: #8d999f;
+            padding: 10px 40px 0px 40px;
+            margin-right: 25px;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 20px;
+            -webkit-box-shadow: 2px 2px 7px 0px rgba(50, 50, 50, 0.55);
+            -moz-box-shadow: 2px 2px 7px 0px rgba(50, 50, 50, 0.55);
+            box-shadow: 2px 2px 7px 0px rgba(50, 50, 50, 0.55);
+        }
+
+        .form-back-button img {
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .form-back-button:hover {
+            -webkit-box-shadow: 1px 1px 7px 0px rgba(50, 50, 50, 0.55);
+            -moz-box-shadow: 1px 1px 7px 0px rgba(50, 50, 50, 0.55);
+            box-shadow: 1px 1px 7px 0px rgba(50, 50, 50, 0.55);
+        }
+
+        .form-back-button img:hover {
+            right: 2px;
+        }
+
+        .form-upload-button {
+            background: green;
+            padding: 10px 40px 0px 40px;
+            min-height: 55px;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 20px;
+            -webkit-box-shadow: 2px 2px 7px 0px rgba(50, 50, 50, 0.55);
+            -moz-box-shadow: 2px 2px 7px 0px rgba(50, 50, 50, 0.55);
+            box-shadow: 2px 2px 7px 0px rgba(50, 50, 50, 0.55);
+        }
+
+        .form-upload-button img {
+            margin-left: 5px;
+            position: relative;
+        }
+
+        .form-upload-button:hover {
+            -webkit-box-shadow: 1px 1px 7px 0px rgba(50, 50, 50, 0.55);
+            -moz-box-shadow: 1px 1px 7px 0px rgba(50, 50, 50, 0.55);
+            box-shadow: 1px 1px 7px 0px rgba(50, 50, 50, 0.55);
+        }
+
+        .form-upload-button img:hover {
+            top: -2px
+        }
+
+        .about-template {}
+
+        .template-prep-tips {}
+
+        .about-template-tips {
+            background-color: white;
+            padding: 20px 15px 30px 25px;
+            margin: 0 auto;
+            margin-bottom: 40px;
+            width: 80%;
+            border: 2px solid #2f8ecc;
+            border-radius: 5px;
+            font-size: 15px;
+            overflow: hidden;
+        }
+
+        .ajax-file-upload-statusbar {
+            border: 1px solid rgba(184, 187, 187, 1);
+            margin-right: 14px;
+            margin: 25px 0px 0px 0px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            padding: 5px 5px 5px 5px;
+            width: 21px;
+            -webkit-box-shadow: 3px 3px 7px -1px rgba(184, 187, 187, 1);
+            -moz-box-shadow: 3px 3px 7px -1px rgba(184, 187, 187, 1);
+            box-shadow: 3px 3px 7px -1px rgba(184, 187, 187, 1);
+        }
+
+        .ajax-file-upload-progress {
+            margin: 0 10px 5px 10px;
+            min-height: 31px;
+            position: relative;
+            width: 78%;
+            border: 1px solid #ddd;
+            padding: 2px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .ajax-file-upload-bar {
+            background-color: #0ba1b5;
+            width: 0;
+            height: 25px;
+            font-size: 17px;
+            border-radius: 3px;
+            color: #FFFFFF;
+        }
+
+        #imgPreview {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!--{GLOBAL_MESSAGES_aae3749ba9c2e308ffa9c240ac185959}-->
+                <!--/{GLOBAL_MESSAGES_aae3749ba9c2e308ffa9c240ac185959}-->
+                <form id="uploader_form" class="scaffold-form" name="uploader_form" action="/submit" method="post"
+                    enctype="multipart/form-data">
+                    <div class="uploader_form">
+                        <div class="fieldset">
+                            <ul style="list-style: none;">
+                                <li style="padding: 10px;">
+                                    <div class="button-set">
+                                        <h2 class="legend" style="text-align: center;">
+                                            <br>
+                                            Deteksi Kebakaran Hutan dan Lahan
+                                        </h2>
+                                        <br>
+                                        <div class="ajax-upload-dragdrop upload-drag-and-drop-box">
+                                            <div class="holder" style="margin-top: -50px">
+                                                <img id="imgPreview" src="{{img}}" alt="pic" />
+                                            </div>
+                                            </br>
+                                            <p class="file-type-desc">( <font color="red">*</font>file extension
+                                                allowed : <strong>.jpg, .jpeg, .png )</p>
+
+                                            <p class="drag-drop-text">
+                                                Browse File Here
+                                            </p>
+                                            <div class="col-md-12" style="padding-left: 30px; padding-right: 30px">
+                                                <input type="file" class="form-control" placeholder="Hours Studied"
+                                                    name="my_image" id="imgInp">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center" style="text-align: justify !important; font-weight: normal !important;">
+                                            <br>
+                                            {% if prediction %}
+                                            <h2> Prediction : <i> {{prediction}} </i></h2>
+                                            {% endif %}
+                                            
+
+                                            {% if d %}
+
+                                            {% if d.deskripsi != "" %}
+                                            <b>Deskripsi Penyakit  :</b> {{d.deskripsi}}
+                                            
+                                            {% endif %}
+                                            
+                                            {% if d.deskripsi != "" %}
+                                            <b>Penyebab Penyakit   :</b> {{d.penyebab}}
+                                            
+                                            {% endif %}
+                                            
+                                            {% if d.deskripsi != "" %}
+                                            <b>Penanganan Penyakit :</b> {{d.penanganan}}
+                                            {% endif %}
+
+                                            {% endif %}
+
+                                            </p>
+                                        </div>
+                                    </div>
+                        </div>
+                        </li>
+                        </ul>
+                    </div>
+                    <div class="file-upload-buttons">
+                        <ul style="list-style: none;">
+                            <li style="padding: 10px;">
+                                <div class="add-to-cart">
+                                    <input type="hidden" name="item_id" value="">
+
+                                    <input type="hidden" name="uploadedfiles" id="uploadedfiles" value="">
+                                    <input type="hidden" name="product_category_id" id="product_category_id"
+                                        value="291">
+                                    <input type="hidden" name="uploadedfiles_additional" id="uploadedfiles_additional"
+                                        value="">
+                                    <!-- <button class="form-back-button" type="button" id="goBackButton" name="btnGoBack" -->
+                                        <!-- onclick="window.location.href='https://eprint4me.ca/menu/marketing-products/postcards.html'">
+                                        <span>
+                                            <span>
+                                                <p>
+                                                    <img src="https://res.cloudinary.com/dtutqsucw/image/upload/v1438960670/back-button-icn.png"
+                                                        / class="animated rotateIn">
+                                                    Go Back
+                                                </p> -->
+                                            <!-- </span>
+                                        </span>
+                                    </button> -->
+                                    &nbsp;&nbsp;
+                                    <button class="form-upload-button" type="submit" id="uploadFileButton"
+                                        name="btnSubmit">
+                                        <span>
+                                            <span id="uploadButtonName">
+                                                <p>
+                                                    Submit
+                                                    <img src="https://res.cloudinary.com/dtutqsucw/image/upload/v1438960670/file-upload.png"
+                                                        / class="animated slideInUp">
+                                                </p>
+                                            </span>
+                                        </span>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(() => {
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                imgPreview.src = URL.createObjectURL(file)
+            }
+        }
+        $("#photo").change(function () {
+            const file = this.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function (event) {
+                    $("#imgPreview")
+                        .attr("src", event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+</html>
